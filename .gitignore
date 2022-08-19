@@ -1,0 +1,36 @@
+*.class
+*.properties
+*.sql
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+.settings/
+.project
+.classpath
+.springBeans
+**/target/
+/commit.txt
+/*/logs/
+/*/wrk/
+effective-pom.xml
+effective-settings.xml
+/*/.gwt/
+.cache
+.idea/
+*.iml
+*.log
+*.lck
+*.jar
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
