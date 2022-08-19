@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+<form action="/people">
+    <input type="submit" value="Назад">
+</form>
+<p th:text="${person.name} + ', ' + ${person.yearOfBirth}">
+
+<p th:if="${booksOfPerson.isEmpty()}">Человек пока не взял ни одной книги</p>
+
+<hr>
+<div th:if="${not booksOfPerson.isEmpty()}">
+    <p><b>Книги:</b></p>
+    <div th:each="book : ${booksOfPerson}">
+        <p th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.date}">book</p>
+    </div>
+
+    <hr>
+</div>
+
+<form th:action="@{/people/{id}/edit(id=${person.getId()})}">
+    <input type="submit" value="Редактировать">
+</form>
+
+
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+</body>
+</html>
