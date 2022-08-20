@@ -26,15 +26,15 @@ public class Person {
     @NotNull(message = "Год рождения не должен быть пустой")
     @Max(value = 2022, message = "Год рождения должен быть в промежутке от 1900 до 2022")
     @Min(value = 1900, message = "Год рождения должен быть в промежутке от 1900 до 2022")
-    @Column(name = "year_of_birth")
-    private Integer yearOfBirth;
+    @Column(name = "date")
+    private Integer date;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "reader")
     private List<Book> books;
 
     public Person(String name, Integer yearOfBirth) {
         this.name = name;
-        this.yearOfBirth = yearOfBirth;
+        this.date = yearOfBirth;
     }
 }

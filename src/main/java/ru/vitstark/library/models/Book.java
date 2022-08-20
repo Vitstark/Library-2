@@ -35,7 +35,7 @@ public class Book {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person owner;
+    private Person reader;
 
     public Book(String name, String author, Integer date) {
         this.name = name;

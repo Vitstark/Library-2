@@ -1,10 +1,9 @@
-package ru.vitstark.library.service;
+package ru.vitstark.library.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.vitstark.library.models.Book;
-import ru.vitstark.library.models.Person;
 import ru.vitstark.library.repositories.BookRepository;
 
 import java.util.List;
@@ -40,7 +39,7 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void delete(Book book) {
-        bookRepository.delete(book);
+    public void delete(Long id) {
+        bookRepository.deleteById(id);
     }
 }
