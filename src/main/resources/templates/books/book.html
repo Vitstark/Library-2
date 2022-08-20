@@ -11,15 +11,15 @@
 
 <p th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.date}">book</p>
 
-<div th:if="${reader.isPresent()}">
-    <p th:text="'Книга сейчас у: ' + ${reader.get().name}"></p>
+<div th:if="${reader}">
+    <p th:text="'Книга сейчас у: ' + ${reader.name}"></p>
     <form th:method="PATCH"
           th:action="@{/books/{id}/free_book(id=${book.id})}">
         <input type="submit" value="Освободить книгу">
     </form>
 </div>
 
-<div th:if="${reader.isEmpty()}">
+<div th:if="${people}">
     <form th:method="PATCH"
           th:action="@{/books/{id}/appoint_book(id=${book.id})}">
         <label for="person">Выберите человека</label>

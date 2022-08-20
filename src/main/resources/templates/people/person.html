@@ -8,7 +8,7 @@
 <form action="/people">
     <input type="submit" value="Назад">
 </form>
-<p th:text="${person.name} + ', ' + ${person.yearOfBirth}">
+<p th:text="${person.name} + ', ' + ${person.date}">
 
 <p th:if="${booksOfPerson.isEmpty()}">Человек пока не взял ни одной книги</p>
 
@@ -22,12 +22,12 @@
     <hr>
 </div>
 
-<form th:action="@{/people/{id}/edit(id=${person.getId()})}">
+<form th:action="@{/people/{id}/edit(id=${person.id})}">
     <input type="submit" value="Редактировать">
 </form>
 
 
-<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.id})}">
     <input type="submit" value="Удалить">
 </form>
 </body>
