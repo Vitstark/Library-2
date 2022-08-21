@@ -23,6 +23,10 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public List<Book> findByNameIsStartingWith(String str) {
+        return bookRepository.findByNameIsStaringWith(str);
+    }
+
     public List<Book> findAllOrderByName() {
         return bookRepository.findAll(Sort.by("name"));
     }
