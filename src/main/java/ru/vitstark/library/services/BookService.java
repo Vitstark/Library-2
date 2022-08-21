@@ -24,7 +24,7 @@ public class BookService {
     }
 
     public List<Book> findByNameIsStartingWith(String str) {
-        return bookRepository.findByNameIsStaringWith(str);
+        return bookRepository.findByNameStartingWith(str);
     }
 
     public List<Book> findAllOrderByName() {
