@@ -23,7 +23,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public List<Book> findByNameIsStartingWith(String str) {
+    public List<Book> findByNameStartingWith(String str) {
         return bookRepository.findByNameStartingWith(str);
     }
 

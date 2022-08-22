@@ -27,6 +27,12 @@ public class BooksController {
         return "books/books";
     }
 
+    @GetMapping("/search")
+    public String books(Model model, @RequestParam("text") String beginningOfName) {
+        model.addAttribute("books", bookService.findByNameStartingWith(beginningOfName));
+        return "books/books";
+    }
+
     @GetMapping("/{id}")
     public String book(@PathVariable("id") Long id, @ModelAttribute("person") Person person, Model model) {
         Book book = bookService.findById(id).get();
