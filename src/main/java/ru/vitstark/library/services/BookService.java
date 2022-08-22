@@ -1,6 +1,7 @@
 package ru.vitstark.library.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.vitstark.library.models.Book;
@@ -29,6 +30,14 @@ public class BookService {
 
     public List<Book> findAllOrderByName() {
         return bookRepository.findAll(Sort.by("name"));
+    }
+
+    public List<Book> findPage(int page, int booksPerPage, Sort sort) {
+        return bookRepository.findAll(PageRequest.of(page, booksPerPage, sort)).getContent();
+    }
+
+    public List<Book> findPage(int page, int booksPerPage) {
+        return bookRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
     }
 
     public void save(Book book) {
