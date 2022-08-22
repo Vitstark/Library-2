@@ -16,7 +16,13 @@
 <div th:if="${not booksOfPerson.isEmpty()}">
     <p><b>Книги:</b></p>
     <div th:each="book : ${booksOfPerson}">
-        <p th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.date}">book</p>
+        <div th:if="${book.isOverdue}">
+            <p style="color:red"
+               th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.date}">book</p>
+        </div>
+        <div th:if="${not book.isOverdue}">
+            <p th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.date}">book</p>
+        </div>
     </div>
 
     <hr>

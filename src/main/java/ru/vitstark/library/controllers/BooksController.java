@@ -11,7 +11,7 @@ import ru.vitstark.library.services.BookService;
 import ru.vitstark.library.services.PersonService;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/books")
@@ -24,6 +24,12 @@ public class BooksController {
     @GetMapping()
     public String books(Model model) {
         model.addAttribute("books", bookService.findAll());
+        return "books/books";
+    }
+
+    @GetMapping("/search")
+    public String books(Model model, @RequestParam("text") String beginningOfName) {
+        model.addAttribute("books", bookService.findByNameStartingWith(beginningOfName));
         return "books/books";
     }
 
@@ -47,6 +53,8 @@ public class BooksController {
         Book book = bookService.findById(id).get();
 
         book.setReader(null);
+        book.setDateOfBorrow(null);
+
         bookService.update(book);
         return "redirect:/books/{id}";
     }
@@ -56,6 +64,8 @@ public class BooksController {
         Book book = bookService.findById(bookId).get();
 
         book.setReader(person);
+        book.setDateOfBorrow(new Date());
+
         bookService.update(book);
         return "redirect:/books/{id}";
     }

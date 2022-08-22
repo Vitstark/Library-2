@@ -1,14 +1,18 @@
 package ru.vitstark.library.controllers;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.vitstark.library.models.Book;
 import ru.vitstark.library.models.Person;
 import ru.vitstark.library.services.PersonService;
 
 import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
@@ -30,8 +34,18 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String person(@PathVariable Long id, Model model) {
         Person person = personService.findById(id).get();
+
+        List<Book> books = person.getBooks();
+        Date now = new Date();
+
+        for (Book book : books) {
+            Date dateOfOverdue = book.getDateOfBorrow();
+            dateOfOverdue.setSeconds(dateOfOverdue.getSeconds() + 20);
+            book.setOverdue(now.after(dateOfOverdue));
+        }
+
         model.addAttribute("person", person);
-        model.addAttribute("booksOfPerson", person.getBooks());
+        model.addAttribute("booksOfPerson", books);
         return "people/person";
     }
 

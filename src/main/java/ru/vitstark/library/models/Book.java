@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -36,6 +37,13 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person reader;
+
+    @Column(name = "date_of_borrow")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateOfBorrow;
+
+    @Transient
+    private boolean isOverdue;
 
     public Book(String name, String author, Integer date) {
         this.name = name;
