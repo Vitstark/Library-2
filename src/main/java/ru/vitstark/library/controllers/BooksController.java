@@ -12,6 +12,7 @@ import ru.vitstark.library.models.Person;
 import ru.vitstark.library.services.BookService;
 import ru.vitstark.library.services.PersonService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 
@@ -24,10 +25,21 @@ public class BooksController {
     private PersonService personService;
 
     @GetMapping()
-    public String books(Model model) {
-        if (model.containsAttribute("sort_by_year")
-                && (Boolean) (model.getAttribute("sort_by_year"))) {
-            model.addAttribute("books", bookService.findAllOrderByYear());
+    public String books(Model model, @RequestParam(value = "sort_by_year", required = false) Boolean sortByDate,
+                        @RequestParam(value = "page", required = false) Integer page,
+                        @RequestParam(value = "books_per_page", required = false) Integer booksPerPage) {
+        if ((page != null && page >= 0) && (booksPerPage != null && booksPerPage > 0)) {
+            if (sortByDate != null && sortByDate) {
+                model.addAttribute("books", bookService.findPageOrderByDate(page, booksPerPage));
+            } else {
+                model.addAttribute("books", bookService.findPage(page, booksPerPage));
+            }
+            return "books/booksPage";
+        }
+
+        if (sortByDate != null && sortByDate) {
+            model.addAttribute("books", bookService.findAllOrderByDate());
+            System.out.println("asf");
         } else {
             model.addAttribute("books", bookService.findAllOrderByName());
         }
