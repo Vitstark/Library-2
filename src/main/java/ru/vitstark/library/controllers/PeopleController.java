@@ -40,7 +40,7 @@ public class PeopleController {
 
         for (Book book : books) {
             Date dateOfOverdue = book.getDateOfBorrow();
-            dateOfOverdue.setSeconds(dateOfOverdue.getSeconds() + 20);
+            dateOfOverdue.setDate(dateOfOverdue.getDate() + 7);
             book.setOverdue(now.after(dateOfOverdue));
         }
 
