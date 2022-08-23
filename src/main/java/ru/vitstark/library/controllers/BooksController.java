@@ -39,7 +39,6 @@ public class BooksController {
 
         if (sortByDate != null && sortByDate) {
             model.addAttribute("books", bookService.findAllOrderByDate());
-            System.out.println("asf");
         } else {
             model.addAttribute("books", bookService.findAllOrderByName());
         }
