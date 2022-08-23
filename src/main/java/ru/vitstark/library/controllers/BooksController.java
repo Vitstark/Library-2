@@ -1,6 +1,8 @@
 package ru.vitstark.library.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +12,7 @@ import ru.vitstark.library.models.Person;
 import ru.vitstark.library.services.BookService;
 import ru.vitstark.library.services.PersonService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 
@@ -22,8 +25,24 @@ public class BooksController {
     private PersonService personService;
 
     @GetMapping()
-    public String books(Model model) {
-        model.addAttribute("books", bookService.findAll());
+    public String books(Model model, @RequestParam(value = "sort_by_year", required = false) Boolean sortByDate,
+                        @RequestParam(value = "page", required = false) Integer page,
+                        @RequestParam(value = "books_per_page", required = false) Integer booksPerPage) {
+        if ((page != null && page >= 0) && (booksPerPage != null && booksPerPage > 0)) {
+            if (sortByDate != null && sortByDate) {
+                model.addAttribute("books", bookService.findPageOrderByDate(page, booksPerPage));
+            } else {
+                model.addAttribute("books", bookService.findPage(page, booksPerPage));
+            }
+            return "books/booksPage";
+        }
+
+        if (sortByDate != null && sortByDate) {
+            model.addAttribute("books", bookService.findAllOrderByDate());
+            System.out.println("asf");
+        } else {
+            model.addAttribute("books", bookService.findAllOrderByName());
+        }
         return "books/books";
     }
 

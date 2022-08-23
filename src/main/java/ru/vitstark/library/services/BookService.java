@@ -36,8 +36,8 @@ public class BookService {
         return bookRepository.findAll(Sort.by("date"));
     }
 
-    public List<Book> findPage(int page, int booksPerPage, Sort sort) {
-        return bookRepository.findAll(PageRequest.of(page, booksPerPage, sort)).getContent();
+    public List<Book> findPageOrderByDate(int page, int booksPerPage) {
+        return bookRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("date"))).getContent();
     }
 
     public List<Book> findPage(int page, int booksPerPage) {
